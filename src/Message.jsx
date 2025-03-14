@@ -128,7 +128,7 @@ const Message = ({ token, privateKey }) => {
     // Fetches and displays a user's profile
     try {
       const response = await axios.get(
-        `https://chatboxfull.onrender.com/api/users/${userId}`,
+        `https://chatbox-einfra.onrender.com/api/users/${userId}`,
         {
           headers: { Authorization: token },
         }
@@ -185,7 +185,7 @@ const Message = ({ token, privateKey }) => {
     // Sets up Socket.io connection and handles real-time events
     if (!token || socket.current) return;
 
-    socket.current = io("https://chatboxfull.onrender.com", {
+    socket.current = io("https://chatbox-einfra.onrender.com", {
       auth: { token },
       forceNew: true,
     });
@@ -279,13 +279,13 @@ const Message = ({ token, privateKey }) => {
     );
 
     Promise.all([
-      axios.get("https://chatboxfull.onrender.com/api/users", {
+      axios.get("https://chatbox-einfra.onrender.com/api/users", {
         headers: { Authorization: token },
       }),
-      axios.get("https://chatboxfull.onrender.com/api/groups", {
+      axios.get("https://chatbox-einfra.onrender.com/api/groups", {
         headers: { Authorization: token },
       }),
-      axios.get("https://chatboxfull.onrender.com/api/messages/last-messages", {
+      axios.get("https://chatbox-einfra.onrender.com/api/messages/last-messages", {
         headers: { Authorization: token },
       }),
     ])
@@ -325,8 +325,8 @@ const Message = ({ token, privateKey }) => {
         try {
           const url =
             chatType === "user"
-              ? `https://chatboxfull.onrender.com/api/messages/private/${selectedChat}`
-              : `https://chatboxfull.onrender.com/api/messages/group/${selectedChat}`;
+              ? `https://chatbox-einfra.onrender.com/api/messages/private/${selectedChat}`
+              : `https://chatbox-einfra.onrender.com/api/messages/group/${selectedChat}`;
           const res = await axios.get(url, {
             headers: { Authorization: token },
           });
@@ -392,7 +392,7 @@ const Message = ({ token, privateKey }) => {
 
       try {
         const response = await axios.post(
-          "https://chatboxfull.onrender.com/api/upload",
+          "https://chatbox-einfra.onrender.com/api/upload",
           formData,
           {
             headers: {
@@ -924,7 +924,7 @@ const Message = ({ token, privateKey }) => {
             <h3 className="text-lg sm:text-xl font-bold mb-4">User Profile</h3>
             {selectedUser.image && (
               <img
-                src={`https://chatboxfull.onrender.com/uploads/${selectedUser.image}`}
+                src={`https://chatbox-einfra.onrender.com/uploads/${selectedUser.image}`}
                 alt={`${safeRender(selectedUser.name)}'s profile`}
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mb-4 object-cover mx-auto"
               />

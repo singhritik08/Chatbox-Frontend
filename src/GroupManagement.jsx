@@ -70,7 +70,7 @@ const GroupManagement = ({
     try {
       // Step 1: Create group
       const createResponse = await axios.post(
-        "https://chatboxfull.onrender.com/api/groups",
+        "https://chatbox-einfra.onrender.com/api/groups",
         { name: groupName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -83,7 +83,7 @@ const GroupManagement = ({
           .filter(userId => userId !== currentUserId) // Creator already added by backend
           .map((userId) =>
             axios.put(
-              `https://chatboxfull.onrender.com/api/groups/${groupId}/members`,
+              `https://chatbox-einfra.onrender.com/api/groups/${groupId}/members`,
               { userId, canSendMessages: true, canCall: true },
               { headers: { Authorization: `Bearer ${token}` } }
             )
@@ -116,7 +116,7 @@ const GroupManagement = ({
     );
     try {
       const response = await axios.put(
-        `https://chatboxfull.onrender.com/api/groups/${groupId}/members`,
+        `https://chatbox-einfra.onrender.com/api/groups/${groupId}/members`,
         { userId, canSendMessages, canCall },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -130,7 +130,7 @@ const GroupManagement = ({
     if (!groupId || !userId) return;
     try {
       const response = await axios.put(
-        `https://chatboxfull.onrender.com/api/groups/${groupId}/permissions`,
+        `https://chatbox-einfra.onrender.com/api/groups/${groupId}/permissions`,
         { userId, canSendMessages, canCall },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -154,7 +154,7 @@ const GroupManagement = ({
 
     try {
       const response = await axios.delete(
-        `https://chatboxfull.onrender.com/api/groups/${groupId}/members/${userId}`,
+        `https://chatbox-einfra.onrender.com/api/groups/${groupId}/members/${userId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setGroups((prev) => prev.map((g) => (g._id === groupId ? response.data : g)));
@@ -169,7 +169,7 @@ const GroupManagement = ({
     }
 
     try {
-      await axios.delete(`https://chatboxfull.onrender.com/api/groups/${groupId}`, {
+      await axios.delete(`https://chatbox-einfra.onrender.com/api/groups/${groupId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setGroups((prev) => prev.filter((g) => g._id !== groupId));
