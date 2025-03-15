@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const safeRender = (value, fallback = "Unknown") => {
-  if (value === null || value === undefined) return fallback;
+  if (!value) return fallback;
   if (typeof value === "string") return value;
-  if (typeof value === "object" && value.name) return value.name;
+  if (typeof value === "object" && value?.name) return value.name;
   return JSON.stringify(value);
 };
+
 
 const Loader = () => (
   <div className="flex justify-center items-center h-full">
@@ -96,6 +97,7 @@ const GroupManagement = ({
       setSelectedMembers([]);
       setShowCreateGroup(false);
       console.log("Group created successfully:", createResponse.data);
+      window.location.reload();
     } catch (err) {
       const errorMessage =
         err.response?.data?.error || "Failed to create group. Check console for details.";
@@ -187,8 +189,15 @@ const GroupManagement = ({
 
   const getLastMessageTime = (userId) => {
     const lastMessage = lastMessageTimes.find((lm) => lm.userId === userId);
-    return lastMessage ? new Date(lastMessage.lastMessageTime).toLocaleTimeString() : "No messages yet";
+    return lastMessage
+      ? new Date(lastMessage.lastMessageTime).toLocaleString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        })
+      : "No messages yet";
   };
+  
 
   const filteredGroups = groups.filter((group) =>
     safeRender(group.name).toLowerCase().includes(searchQuery.toLowerCase())
