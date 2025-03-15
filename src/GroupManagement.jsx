@@ -309,7 +309,7 @@ const GroupManagement = ({
                                         member.canCall || false
                                       )
                                     }
-                                    disabled={`safeRender(member.userId?._id || member.userId) === currentUser Id`}
+                                    disabled={safeRender(member.userId?._id || member.userId) === currentUserId}
                                     className="rounded text-blue-500 focus:ring-blue-500 h-4 w-4"
                                   />
                                   <span className="text-xs text-gray-600">Chat</span>
@@ -331,7 +331,7 @@ const GroupManagement = ({
                                   />
                                   <span className="text-xs text-gray-600">Call</span>
                                 </div>
-                                {`safeRender(member.userId?._id || member.userId) !== currentUser Id && (
+                                {safeRender(member.userId?._id || member.userId) !== currentUserId && (
                                   <button
                                     onClick={() =>
                                       removeMemberFromGroup(group._id, safeRender(member.userId?._id || member.userId))
@@ -342,7 +342,7 @@ const GroupManagement = ({
                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                   </button>
-                                )`}
+                                )}
                               </div>
                             </div>
                           ))}
